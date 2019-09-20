@@ -46,7 +46,7 @@ public class Main {
                     rooms.get(i).setBorders(borders);
                     break;
                 }
-                case "dining room": {
+                case "dinning room": {
                     borders.put(Border.SOUTH, 3);
                     borders.put(Border.EAST, 9);
                     rooms.get(i).setBorders(borders);
@@ -91,8 +91,13 @@ public class Main {
         int nextRoomId = currentRoom.getId();
         String options = " Which direction do you want to go? ( ";
 
+        if (currentRoom.getId() == 9){
+            isGameOver = true;
+            System.out.println(currentRoom.getDescription());
+            return null;
+        }
+
         if (currentRoom.getBorders().containsKey(Border.NORTH)) {
-            //***************nullpointerexception here
             options = options.concat("north ");
         }
         if (currentRoom.getBorders().containsKey(Border.SOUTH)) {
@@ -107,11 +112,6 @@ public class Main {
         options = options.concat(")");
 
         System.out.println("You are in the " + currentRoom.getName() + ". " + currentRoom.getDescription() + options);
-
-        if (currentRoom.getId() == 9){
-            isGameOver = true;
-            return null;
-        }
 
         while (!isValidAnswer){
             answer = kb.nextLine();
